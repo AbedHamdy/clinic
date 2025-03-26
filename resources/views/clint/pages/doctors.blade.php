@@ -15,7 +15,7 @@
                     <img src="../assets/images/major.jpg" class="card-img-top rounded-circle card-image-circle"alt="Image Doctor">
                     <div class="card-body d-flex flex-column gap-1 justify-content-center">
                         <h4 class="card-title fw-bold text-center">{{ $doctor["name"] }}</h4>
-                        <h6 class="card-title fw-bold text-center">Major</h6>
+                        <h6 class="card-title fw-bold text-center">{{ $doctor["major"]["name_specialty"] }}</h6>
                         <a href="{{ route("clint-booking" , $doctor->id) }}" class="btn btn-outline-primary card-button">
                             Book an appointment</a>
                     </div>

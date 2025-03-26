@@ -6,21 +6,37 @@
             <div class="col-md-6">
                 <div class="card shadow-lg p-4">
                     <h3 class="text-center mb-4">Enter Your Name</h3>
+                    @if (session("success"))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session("success") }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    @if($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            @foreach($errors->all() as $error)
+                                <p>{{ $error }}</p>
+                            @endforeach
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
                     <form action="{{ route("store-doctor") }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="name" class="form-label fw-bold">Your Name</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+                            <input type="text" class="form-control" value="{{ old('name', $data['name'] ?? '') }}" id="name" name="name" placeholder="Enter your full name" >
                         </div>
                         <div class="mb-3">
                             <label for="major_id" class="form-label fw-bold">Specialty</label>
-                            <select class="form-select" id="major_id" name="major_id" required>
+                            <select class="form-select" id="major_id" name="major" required>
                                 <option value="" disabled selected>Select Specialty</option>
                                 @foreach($majors as $major)
-                                    <option value="{{ $major->id }}">{{ $major->name_specialty }}</option>
+                                    <option value="{{ $major->id }}" {{ old('major', $data['major'] ?? '') == $major->id ? 'selected' : '' }}>
+                                        {{ $major->name_specialty }}
+                                    </option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div>                        
                         <button type="submit" class="btn btn-primary w-100">Submit</button>
                     </form>
                 </div>

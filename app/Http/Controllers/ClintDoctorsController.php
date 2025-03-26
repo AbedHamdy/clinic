@@ -10,8 +10,8 @@ class ClintDoctorsController extends Controller
 {
     public function index()
     {
-        $majors = Major::get();
+        // $majors = Major::get();
         $doctors = Doctor::with("major")->get();
-        return view("clint.pages.doctors",compact("doctors" , "majors"));
+        return view("clint.pages.doctors",compact("doctors"));
     }
 }

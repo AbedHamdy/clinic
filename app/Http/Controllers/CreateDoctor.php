@@ -18,17 +18,17 @@ class CreateDoctor extends Controller
     {
         $data = $request->validate(
             [
-                "name" => "required|string|max:50" ,
-                "major_id" =>"required|"
+                "name" => "required|string|max:100|min:3" ,
+                "major" =>"required|"
             ]
         );
 
-        $doctor = Doctor::create(
+        Doctor::create(
             [
                 "name" => $data["name"] ,
-                "major_id" => $data["major_id"]
+                "major_id" => $data["major"]
             ]
         );
-        return $doctor;
+        return redirect()->route("create-doctor")->with("success" , "Doctor Created Successfully");
     }
 }
