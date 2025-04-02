@@ -39,7 +39,8 @@ class ClintMajorController extends Controller
         $major = Major::find($id);
         if($major)
         {
-            $major->delete();
+            $major->doctors()->delete();
+            $major->delete();       
             return redirect()->route("clint-majors")->with("success" , "Major Deleted Successfully");
         }
         else
