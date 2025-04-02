@@ -31,4 +31,10 @@ class CreateDoctor extends Controller
         );
         return redirect()->route("create-doctor")->with("success" , "Doctor Created Successfully");
     }
+
+    public function destroy($id)
+    {
+        Doctor::find($id)->delete();
+        return redirect("create-doctor");
+    }
 }

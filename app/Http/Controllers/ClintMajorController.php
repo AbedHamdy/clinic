@@ -33,4 +33,18 @@ class ClintMajorController extends Controller
         );
         return redirect()->route("create-major")->with("success" , "Major Created Successfully");
     }
+
+    public function destroy($id)
+    {
+        $major = Major::find($id);
+        if($major)
+        {
+            $major->delete();
+            return redirect()->route("clint-majors")->with("success" , "Major Deleted Successfully");
+        }
+        else
+        {
+            return redirect()->route("clint-majors")->with("error" , "Major Not Found");
+        }
+    }
 }

@@ -26,17 +26,26 @@ use App\Http\Controllers\CreateDoctor;
 //     return view('welcome');
 // });
 
+Route::get('/', [ClintHomeController::class,"index"])->name("clint-home");
+
 Route::middleware('auth')->group(function () {
-    Route::get('/store-major' , [ClintMajorController::class,"create"])->name("create-major");
-    Route::post('/store-major' , [ClintMajorController::class,"store"])->name("store-major");
-    
-    Route::get('/create-doctor' , [CreateDoctor::class,"index"])->name("create-doctor");
-    Route::post('/store-doctor' , [CreateDoctor::class,"store"])->name("store-doctor");
     
     Route::get('/booking/{id}' , [ClintBookingController::class,"index"])->name("clint-booking");
+    Route::post('/create-booking' , [ClintBookingController::class,"create"])->name("create-booking");
 });
 
-Route::get('/', [ClintHomeController::class,"index"])->name("clint-home");
+Route::middleware("CheckRole")->group(function(){
+
+    Route::get('/store-major' , [ClintMajorController::class,"create"])->name("create-major");
+    Route::post('/store-major' , [ClintMajorController::class,"store"])->name("store-major");
+    Route::delete('/delete-major/{id}' , [ClintMajorController::class,"destroy"])->name("delete-major");
+    
+    Route::get('/create-doctor' , [CreateDoctor::class,"index"])->name("create-doctor");
+    Route::post('/store-doctor' , [CreateDoctor::class,"store"])->name("store-doctor"); 
+    Route::delete('/delete-doctor/{id}' , [CreateDoctor::class,"destroy"])->name("delete-doctor"); 
+});
+
+
 
 // Route::get('/login' , [ClintLoginController::class,"index"])->name("clint-login");
 // Route::get('/register' , [ClintRegisterController::class,"index"])->name("clint-register");

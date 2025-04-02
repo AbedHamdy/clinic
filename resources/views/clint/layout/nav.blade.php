@@ -8,6 +8,7 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <div class="d-flex gap-3 flex-wrap justify-content-center" role="group">
                 <a type="button" class="btn btn-outline-light navigation--button" href="{{ route("clint-home") }}">Home</a>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Doctor;
+use App\Models\Appointment;
+use Illuminate\Support\Facades\Auth;
 
 class ClintBookingController extends Controller
 {
@@ -11,5 +13,30 @@ class ClintBookingController extends Controller
     {
         $doctor = Doctor::find($id);
         return view("clint.pages.booking" , compact("doctor"));
+    }
+
+    public function create(Request $request)
+    {
+        $data = $request->validate(
+            [
+                "name" => "required|string|max:100|min:3" ,
+                "phone" => "required|numeric|digits:11" ,
+                "email" => "required|email"
+            ]
+        );
+
+        $user_id = Auth::user()->id;
+        // $data["user_id"] = $user_id;
+        // return $data;
+        Appointment::create(
+            [
+                "name" => $data["name"] ,
+                "phone" => $data["phone"] ,
+                "email" => $data["email"] ,
+                "user_id" => $user_id
+            ]
+        );
+
+        return redirect()->route("clint-home")->with("success" , "Booking Created Successfully");
     }
 }

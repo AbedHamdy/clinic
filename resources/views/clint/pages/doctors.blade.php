@@ -17,9 +17,15 @@
                         <h4 class="card-title fw-bold text-center">{{ $doctor["name"] }}</h4>
                         <h6 class="card-title fw-bold text-center">{{ $doctor["major"]["name_specialty"] }}</h6>
                         <a href="{{ route("clint-booking" , $doctor->id) }}" class="btn btn-outline-primary card-button">
-                            Book an appointment</a>
+                            Book an appointment
+                        </a>
                     </div>
                 </div>
+                <form method="POST" action="{{ route("delete-doctor" , $doctor->id) }}">
+                    @method("delete")
+                    @csrf
+                    <button class="btn btn-outline-primary" type="submit">Delete</button>
+                </form>
             @endforeach
         </div>
         {{-- <nav class="mt-5" aria-label="navigation">

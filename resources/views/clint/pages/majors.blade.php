@@ -8,8 +8,21 @@
                 <li class="breadcrumb-item active" aria-current="page">majors</li>
             </ol>
         </nav>
+        @if (session("success"))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session("success") }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @foreach($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="majors-grid">
-            
             @foreach($majors as $major)
                 <div class="card p-2" style="width: 18rem;">
                     <img src="assets/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
@@ -19,6 +32,11 @@
                         <a href="{{ route("show-doctors" , $major->id) }}" class="btn btn-outline-primary card-button">Browse Doctors</a>
                     </div>
                 </div>
+                <form method="POST" action="{{ route("delete-major" , $major->id) }}">
+                    @method("delete")
+                    @csrf
+                    <button class="btn btn-outline-primary" type="submit">Delete</button>
+                </form>
             @endforeach
         </div>
 @endsection
