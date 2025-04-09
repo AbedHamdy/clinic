@@ -17,7 +17,7 @@
                 <a type="button" class="btn btn-outline-light navigation--button" href="{{ route("create-major") }}">Create Major</a>
                 <a type="button" class="btn btn-outline-light navigation--button" href="{{ route("create-doctor") }}">Create Doctor</a>
                 @auth
-                    <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button class="btn btn-outline-light navigation--button">Logout</button>
                     </form>

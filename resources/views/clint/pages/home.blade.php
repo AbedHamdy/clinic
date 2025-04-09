@@ -45,6 +45,7 @@
                 </div>
             </div>
         @endforeach
+        {{-- {{ $majors->links() }} --}}
         <h2 class="h1 fw-bold text-center my-4">doctors</h2>
         <section class="splide home__slider__doctors mb-5">
             {{-- {{ $doctors }} --}}

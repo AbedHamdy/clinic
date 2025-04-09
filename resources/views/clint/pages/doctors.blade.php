@@ -10,7 +10,7 @@
             </ol>
         </nav>
         <div class="doctors-grid">
-            @foreach($doctors as $doctor)
+            @forelse($doctors as $doctor)
                 <div class="card p-2" style="width: 18rem;">
                     <img src="../assets/images/major.jpg" class="card-img-top rounded-circle card-image-circle"alt="Image Doctor">
                     <div class="card-body d-flex flex-column gap-1 justify-content-center">
@@ -26,8 +26,15 @@
                     @csrf
                     <button class="btn btn-outline-primary" type="submit">Delete</button>
                 </form>
-            @endforeach
+            @empty
+                <div class="alert alert-info text-center" role="alert">
+                    No doctors available.
+                </div>
+            @endforelse
         </div>
+        {{ $doctors->links() }}
+        {{-- <div class="d-flex justify-content-center">
+            <a href="{{ route("clint-add-doctor") }}" class="btn btn-primary">Add Doctor</a>
         {{-- <nav class="mt-5" aria-label="navigation">
             <ul class="pagination justify-content-center">
                 <li class="page-item">

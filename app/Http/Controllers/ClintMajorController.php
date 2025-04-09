@@ -9,7 +9,7 @@ class ClintMajorController extends Controller
 {
     public function index()
     {
-        $majors = Major::get();
+        $majors = Major::paginate(10);  // default pagnation = 15 
         return view("clint.pages.majors" , compact("majors"));
     }
 

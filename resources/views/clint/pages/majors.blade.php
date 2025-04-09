@@ -23,7 +23,7 @@
             </div>
         @endif
         <div class="majors-grid">
-            @foreach($majors as $major)
+            @forelse($majors as $major)
                 <div class="card p-2" style="width: 18rem;">
                     <img src="assets/images/major.jpg" class="card-img-top rounded-circle card-image-circle"
                         alt="major">
@@ -37,6 +37,11 @@
                     @csrf
                     <button class="btn btn-outline-primary" type="submit">Delete</button>
                 </form>
-            @endforeach
+            @empty
+                <div class="alert alert-info text-center" role="alert">
+                    No majors available.
+                </div>
+            @endforelse
+            {{ $majors->links() }}
         </div>
 @endsection

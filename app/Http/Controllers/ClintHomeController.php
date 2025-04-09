@@ -10,8 +10,8 @@ class ClintHomeController extends Controller
 {
     public function index()
     {
-        $majors = Major::get();
-        $doctors = Doctor::with("major")->get();
+        $majors = Major::take(4)->get();
+        $doctors = Doctor::with("major")->take(8)->get();
         return view("clint.pages.home" , compact( "doctors" , "majors"));
     }
 }
