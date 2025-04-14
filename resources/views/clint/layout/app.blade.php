@@ -38,8 +38,10 @@
                         <a href="{{ route("clint-home") }}" class="link text-white">Home</a>
                         <a href="{{ route("clint-majors") }}" class="link text-white">Majors</a>
                         <a href="{{ route("clint-doctors") }}" class="link text-white">Doctors</a>
-                        <a href="{{ route("create-major") }}" class="link text-white">Create Major</a>
-                        <a href="{{ route("create-doctor") }}" class="link text-white">Create Doctor</a>
+                        @if (Auth::check() && Auth::user()->role == "admin")
+                            <a href="{{ route("create-major") }}" class="link text-white">Create Major</a>
+                            <a href="{{ route("create-doctor") }}" class="link text-white">Create Doctor</a>
+                        @endif
                         @auth
                             <a href="{{ route("logout") }}" class="link text-white">Logout</a>
                         @else

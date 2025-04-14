@@ -21,11 +21,13 @@
                         </a>
                     </div>
                 </div>
-                <form method="POST" action="{{ route("delete-doctor" , $doctor->id) }}">
-                    @method("delete")
-                    @csrf
-                    <button class="btn btn-outline-primary" type="submit">Delete</button>
-                </form>
+                @if (Auth::check() && Auth::user()->is_admin)
+                    <form method="POST" action="{{ route("delete-doctor" , $doctor->id) }}">
+                        @method("delete")
+                        @csrf
+                        <button class="btn btn-outline-primary" type="submit">Delete</button>
+                    </form>
+                @endif
             @empty
                 <div class="alert alert-info text-center" role="alert">
                     No doctors available.

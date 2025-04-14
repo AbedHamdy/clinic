@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Doctor;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Events\BookingEvent;
+use App\Mail\BookingMail;
 
 class ClintBookingController extends Controller
 {
@@ -28,7 +31,7 @@ class ClintBookingController extends Controller
         $user_id = Auth::user()->id;
         // $data["user_id"] = $user_id;
         // return $data;
-        Appointment::create(
+        $booking = Appointment::create(
             [
                 "name" => $data["name"] ,
                 "phone" => $data["phone"] ,
@@ -37,6 +40,10 @@ class ClintBookingController extends Controller
             ]
         );
 
+        event(new BookingEvent($booking));
+
+        Mail::to($data["email"])->send(new BookingMail($data));
+        
         return redirect()->route("clint-home")->with("success" , "Booking Created Successfully");
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route; // Ensure this line is present and correctly spelled
 use App\Http\Controllers\ClintHomeController;
 use App\Http\Controllers\ClintMajorController;
 use App\Http\Controllers\ClintDoctorsController;
@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/create-booking' , [ClintBookingController::class,"create"])->name("create-booking");
 });
 
-Route::middleware("CheckRole")->group(function(){
+Route::middleware(["auth" , "CheckRole:admin"])->group(function(){
 
     Route::get('/store-major' , [ClintMajorController::class,"create"])->name("create-major");
     Route::post('/store-major' , [ClintMajorController::class,"store"])->name("store-major");

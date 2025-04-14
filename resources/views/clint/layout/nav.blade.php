@@ -14,8 +14,11 @@
                 <a type="button" class="btn btn-outline-light navigation--button" href="{{ route("clint-home") }}">Home</a>
                 <a type="button" class="btn btn-outline-light navigation--button" href="{{ route("clint-majors") }}">majors</a>
                 <a type="button" class="btn btn-outline-light navigation--button" href="{{ route("clint-doctors") }}">Doctors</a>
-                <a type="button" class="btn btn-outline-light navigation--button" href="{{ route("create-major") }}">Create Major</a>
-                <a type="button" class="btn btn-outline-light navigation--button" href="{{ route("create-doctor") }}">Create Doctor</a>
+                
+                @if (Auth::check() && Auth::user()->role == "admin")    
+                    <a type="button" class="btn btn-outline-light navigation--button" href="{{ route("create-major") }}">Create Major</a>
+                    <a type="button" class="btn btn-outline-light navigation--button" href="{{ route("create-doctor") }}">Create Doctor</a>
+                @endif
                 @auth
                 <form method="POST" action="{{ route('logout') }}">
                         @csrf
