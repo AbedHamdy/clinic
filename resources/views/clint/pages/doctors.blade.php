@@ -21,7 +21,7 @@
                         </a>
                     </div>
                 </div>
-                @if (Auth::check() && Auth::user()->is_admin)
+                @if (Auth::check() && Auth::user()->role == "admin")
                     <form method="POST" action="{{ route("delete-doctor" , $doctor->id) }}">
                         @method("delete")
                         @csrf

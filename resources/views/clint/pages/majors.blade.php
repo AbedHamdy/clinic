@@ -32,11 +32,13 @@
                         <a href="{{ route("show-doctors" , $major->id) }}" class="btn btn-outline-primary card-button">Browse Doctors</a>
                     </div>
                 </div>
-                <form method="POST" action="{{ route("delete-major" , $major->id) }}">
-                    @method("delete")
-                    @csrf
-                    <button class="btn btn-outline-primary" type="submit">Delete</button>
-                </form>
+                @if (Auth::check() && Auth::user()->role == "admin")
+                    <form method="POST" action="{{ route("delete-major" , $major->id) }}">
+                        @method("delete")
+                        @csrf
+                        <button class="btn btn-outline-primary" type="submit">Delete</button>
+                    </form>
+                @endif
             @empty
                 <div class="alert alert-info text-center" role="alert">
                     No majors available.
