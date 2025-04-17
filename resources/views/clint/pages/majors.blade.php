@@ -1,6 +1,12 @@
 @extends("clint.layout.app")
 @section("title" , "Majors")
 @section("clint_content")
+    @if (session('success-update-major'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success-update-major') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <div class="container">
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="fw-bold my-4 h4">
             <ol class="breadcrumb justify-content-center">
@@ -32,13 +38,15 @@
                         <a href="{{ route("show-doctors" , $major->id) }}" class="btn btn-outline-primary card-button">Browse Doctors</a>
                     </div>
                 </div>
-                @if (Auth::check() && Auth::user()->role == "admin")
-                    <form method="POST" action="{{ route("delete-major" , $major->id) }}">
-                        @method("delete")
+                <div class="d-flex flex-column mt-2" style="width:14rem;">
+                    <form method="POST" action="{{ route("delete-major", $major->id) }}">
                         @csrf
-                        <button class="btn btn-outline-primary" type="submit">Delete</button>
+                        @method("delete")
+                        <button class="btn btn-outline-danger w-100 mb-2" type="submit">Delete</button>
                     </form>
-                @endif
+
+                    <a href="{{ route('show-major', $major->id) }}" class="btn btn-outline-primary w-100">Update</a>
+                </div>
             @empty
                 <div class="alert alert-info text-center" role="alert">
                     No majors available.

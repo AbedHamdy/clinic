@@ -38,10 +38,14 @@ Route::middleware(["auth" , "CheckRole:admin"])->group(function(){
 
     Route::get('/store-major' , [ClintMajorController::class,"create"])->name("create-major");
     Route::post('/store-major' , [ClintMajorController::class,"store"])->name("store-major");
+    Route::get('/show-major/{id}' , [ClintMajorController::class,"show"])->name("show-major");
+    Route::put('/update-major' , [ClintMajorController::class,"update"])->name("update-major");
     Route::delete('/delete-major/{id}' , [ClintMajorController::class,"destroy"])->name("delete-major");
     
     Route::get('/create-doctor' , [CreateDoctor::class,"index"])->name("create-doctor");
     Route::post('/store-doctor' , [CreateDoctor::class,"store"])->name("store-doctor"); 
+    Route::get('/show-doctor\{id}' , [CreateDoctor::class,"show"])->name("show-doctor"); 
+    Route::put('/update-doctor' , [CreateDoctor::class,"update"])->name("update-doctor"); 
     Route::delete('/delete-doctor/{id}' , [CreateDoctor::class,"destroy"])->name("delete-doctor"); 
 });
 

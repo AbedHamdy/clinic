@@ -26,12 +26,43 @@ class ClintMajorController extends Controller
             ]
         );
 
-        major::create(
+        Major::create(
             [
                 "name_specialty" => $data["name"]
             ]
         );
         return redirect()->route("create-major")->with("success" , "Major Created Successfully");
+    }
+
+    public function show($id)
+    {
+        $major = Major::find($id);
+        if($major)
+        {
+            return view("clint.pages.majors.show-major" , compact("major"));
+        }
+        else
+        {
+            return redirect()->route("clint-majors")->with("error" , "Major Not Found");
+        }
+    }
+
+    public function update(Request $request)
+    {
+        $data = $request->validate(
+            [
+                "name" => "required|string|max:100|min:3|unique:majors,name_specialty",
+                "id" => "required|integer"
+            ]
+        );
+
+        $major = Major::findOrFail($data["id"]);
+        $major->update([
+            "name_specialty" => $data["name"],
+        ]);
+        // $major->name_specialty = $data["name"];
+        // $major->save();
+        return redirect()->route("clint-majors")->with("success-update-major" , "Major Updated Successfully");
     }
 
     public function destroy($id)
@@ -40,7 +71,7 @@ class ClintMajorController extends Controller
         if($major)
         {
             $major->doctors()->delete();
-            $major->delete();       
+            $major->delete();
             return redirect()->route("clint-majors")->with("success" , "Major Deleted Successfully");
         }
         else
