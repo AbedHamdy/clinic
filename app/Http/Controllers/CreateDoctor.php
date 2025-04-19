@@ -10,8 +10,8 @@ class CreateDoctor extends Controller
 {
     public function index()
     {
-        $doctors = Major::get();
-        return view("clint.pages.doctors.create-doctor" , compact("doctors"));
+        $majors = Major::paginate();
+        return view("clint.pages.doctors.create-doctor" , compact("majors"));
     }
 
     public function store(Request $request)

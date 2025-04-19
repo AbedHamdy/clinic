@@ -1,3 +1,4 @@
+{{-- {{ dd($majors) }} --}}
 @extends("clint.layout.app")
 @section("title" , "Majors")
 @section("clint_content")
@@ -38,15 +39,17 @@
                         <a href="{{ route("show-doctors" , $major->id) }}" class="btn btn-outline-primary card-button">Browse Doctors</a>
                     </div>
                 </div>
-                <div class="d-flex flex-column mt-2" style="width:14rem;">
-                    <form method="POST" action="{{ route("delete-major", $major->id) }}">
-                        @csrf
-                        @method("delete")
-                        <button class="btn btn-outline-danger w-100 mb-2" type="submit">Delete</button>
-                    </form>
+                @if (Auth::check() && Auth::user()->role == "admin")
+                    <div class="d-flex flex-column mt-2" style="width:14rem;">
+                        <form method="POST" action="{{ route("delete-major", $major->id) }}">
+                            @csrf
+                            @method("delete")
+                            <button class="btn btn-outline-danger w-100 mb-2" type="submit">Delete</button>
+                        </form>
 
-                    <a href="{{ route('show-major', $major->id) }}" class="btn btn-outline-primary w-100">Update</a>
-                </div>
+                        <a href="{{ route('show-major', $major->id) }}" class="btn btn-outline-primary w-100">Update</a>
+                    </div>
+                @endif
             @empty
                 <div class="alert alert-info text-center" role="alert">
                     No majors available.
